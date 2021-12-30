@@ -246,7 +246,7 @@ int main()
               ffhalf(v1);
               xordiff(v, v1, r);
 
-              FORWARD_DIFF = (r[2]);
+              FORWARD_DIFF = r[2];
 
               fshalf(v);
               fshalf(v1);
@@ -291,13 +291,12 @@ int main()
               ul pattern0 = (0x00000001 << 20);
               if (((FORWARD_DIFF ^ BACK_DIFF) & pattern0) == 0)
               {
-                     pattern0 = pattern0 << 1;
-                     if (((FORWARD_DIFF ^ BACK_DIFF) & pattern0) == 0)
-                            cnt = cnt + 1.0;
+
+                     cnt = cnt + 1.0;
 
                      loop++;
               }
-              if (loop > 0 && loop % (2) == 0)
+              if (loop > 0 && loop % 512 == 0)
                      printf("%llu   %0.10f   \n", loop / (1024 * 256), 2 * ((cnt / loop) - 0.5));
        }
 }
