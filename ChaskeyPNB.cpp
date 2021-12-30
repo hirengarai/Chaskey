@@ -254,11 +254,11 @@ int main()
               E1(v, k);
               E1(v1, k);
 
-              for (int i = 0; i < 4; i++)
-              {
-                     v[i] ^= k[i];
-                     v1[i] ^= k[i];
-              }
+              // for (int i = 0; i < 4; i++)
+              // {
+              //        v[i] ^= k[i];
+              //        v1[i] ^= k[i];
+              // }
 
               for (int i = 0; i < 4; i++)
               {
