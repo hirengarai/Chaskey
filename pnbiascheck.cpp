@@ -201,7 +201,7 @@ int main()
        double round = 1024 * 64;
        ull loop = 0;
 
-       while (loop < 32*1*1)
+       while (loop < 1024 * 1024 * 1024)
        {
               inti(v);
               initializerKey(k);
@@ -233,7 +233,7 @@ int main()
                      v[i] ^= k[i];
                      v1[i] ^= k[i];
               }
-//randomising
+              //randomising
               for (j = 0; j < ll; j++)
               {
 
@@ -263,14 +263,14 @@ int main()
               u32 pattern0 = (0x00000001 << 20);
               if (((FORWARD_DIFF ^ BACK_DIFF) & pattern0) == 0)
               {
-
                      cnt = cnt + 1.0;
-                     loop++;
               }
-              
-              if (loop > 0 && loop % (2) == 0)
-              printf("%llu   %0.10f   \n", loop / (1024), 2 * ((cnt / loop) - 0.5));
+              loop++;
+
+              if (loop > 0 && loop % (1024 * 128) == 0)
+                     printf(" %llu      %0.10f   \n", loop / (1024 * 256), 2 * (0.5 - cnt / loop));
        }
+       //  printf("%llu   %0.10f   \n", loop / (1024), 2 * ((cnt / loop) - 0.5));
 }
 //                      cnt = cnt + 1.0;
 
