@@ -203,9 +203,9 @@ int main()
        u32 v[4], v1[4], k[4], v2[4], y[4], y1[4], y2[4], z[4], z1[4];
        // diffForward, diffBack;
        ul d[4], r[4];
-       int PNB_SET[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 21, 22, 25, 32, 33, 34, 35, 36, 39, 40, 43, 44, 45, 46, 51, 52, 53, 58, 59, 60, 61, 62, 63, 67, 68, 69, 74, 75, 76, 77, 78, 79, 80, 81, 84, 87, 92, 93, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118};
-       //121
-       int ll = 79;
+       int PNB_SET[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 21, 22, 25, 32, 33, 34, 35, 36, 39, 40, 43, 44, 45, 46, 51, 52, 53, 58, 59, 60, 61, 62, 63, 67, 68, 69, 74, 75, 76, 77, 78, 79, 80, 81, 84, 87, 92, 93, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118,121};
+  
+       int ll = 80;
        ul FORWARD_DIFF, BACK_DIFF, pattern;
        int i, j, WORD, BIT;
        double cnt = 0.0;
@@ -223,24 +223,21 @@ int main()
        ull loop = 0;
        ull LOOP = 0;
 
-       while (loop < 1024 * 1024 * 1024)
+       while (LOOP < 1024 * 1024 * 1024)
        {
 
               inti(v);
               initializerKey(k);
-              copystate(v1, v);
-              //copystate(y, v);
-              ul pattern = (0x00000001 << 31);
-              v1[0] = v[0] ^ pattern;
-
               for (int i = 0; i < 4; i++)
               {
                      v[i] ^= k[i];
-                     v1[i] ^= k[i];
               }
-              
+              copystate(v1, v);
+              copystate(y, v);
 
-              //copystate(y1, v1);
+              ul pattern = (0x00000001 << 31);
+              v1[0] = v[0] ^ pattern;
+              copystate(y1, v1);
               fshalf(v);
               fshalf(v1);
               E(v, k);
@@ -263,8 +260,11 @@ int main()
                      v1[i] ^= k[i];
               }
 
-              
-              //randomisisng pnb
+              for (int i = 0; i < 4; i++)
+              {
+                     v[i] ^= k[i];
+                     v1[i] ^= k[i];
+              }
               for (j = 0; j < ll; j++)
               {
 
@@ -273,22 +273,17 @@ int main()
 
                      if (drand48() < 0.5)
                      {
-                            k[WORD] = k[WORD] ^ (0x00000001 << BIT);
-                            // y1[WORD] = y1[WORD] ^ (0x00000001 << BIT);
+                            y[WORD] = y[WORD] ^ (0x00000001 << BIT);
+                            y1[WORD] = y1[WORD] ^ (0x00000001 << BIT);
                      }
               }
-              for (int i = 0; i < 4; i++)
+              for (int round = 6; round > 5; --round)
               {
-                     v[i] ^= k[i];
-                     v1[i] ^= k[i];
+                     D(v, k);
+                     D(v1, k);
               }
-
-              D(v, k);
-              D(v1, k);
-
               bshalf(v);
               bshalf(v1);
-
               xordiff(v, v1, d);
 
               BACK_DIFF = (d[2]);
@@ -301,7 +296,7 @@ int main()
 
                      loop++;
               }
-              if (loop > 0 && loop % 512 == 0)
+              if (loop > 0 && loop % (2) == 0)
                      printf("%llu   %0.10f   \n", loop / (1024 * 256), 2 * ((cnt / loop) - 0.5));
        }
 }
