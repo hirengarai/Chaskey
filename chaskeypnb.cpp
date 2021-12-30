@@ -297,11 +297,9 @@ int main()
                     v1[i] ^= k[i];
                 }
 
-                for (int round = 6; round > 5; --round)
-                {
                     D(v, k);
                     D(v1, k);
-                }
+        
                 bshalf(v);
                 bshalf(v1);
                 xordiff(v, v1, d);

@@ -254,17 +254,14 @@ int main()
               E1(v, k);
               E1(v1, k);
 
-              // for (int i = 0; i < 4; i++)
-              // {
-              //        v[i] ^= k[i];
-              //        v1[i] ^= k[i];
-              // }
-
               for (int i = 0; i < 4; i++)
               {
                      v[i] ^= k[i];
                      v1[i] ^= k[i];
               }
+
+              
+              //randomisisng pnb
               for (j = 0; j < ll; j++)
               {
 
@@ -273,15 +270,19 @@ int main()
 
                      if (drand48() < 0.5)
                      {
-                            y[WORD] = y[WORD] ^ (0x00000001 << BIT);
-                            y1[WORD] = y1[WORD] ^ (0x00000001 << BIT);
+                            k[WORD] = k[WORD] ^ (0x00000001 << BIT);
+                            // y1[WORD] = y1[WORD] ^ (0x00000001 << BIT);
                      }
               }
-              for (int round = 6; round > 5; --round)
+              for (int i = 0; i < 4; i++)
               {
-                     D(v, k);
-                     D(v1, k);
+                     v[i] ^= k[i];
+                     v1[i] ^= k[i];
               }
+
+              D(v, k);
+              D(v1, k);
+
               bshalf(v);
               bshalf(v1);
               xordiff(v, v1, d);
